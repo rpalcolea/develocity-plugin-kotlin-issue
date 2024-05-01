@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id "org.jetbrains.kotlin.jvm" version "1.9.23"
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://plugins.gradle.org/m2/")
+    }
+}
+
+
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+    develocity {
+        testDistribution {
+            enabled = false
+            remoteExecutionPreferred = false
+            maxRemoteExecutors = 0
+        }
+    }
+    testLogging {
+        displayGranularity = 0
+        events('PASSED', 'FAILED', 'SKIPPED')
+    }
+}
